@@ -1,28 +1,46 @@
+// Função para adicionar tarefa
 function adicionarTarefa() {
+    const inputTarefa = document.getElementById("inputTarefa");
+    let tarefa = inputTarefa.value.trim();
+    const mensagem = document.getElementById("mensagem");
 
-    //recebe valor do input do usuário
-    const inputTarefa = document.getElementById("inputTarefa")
-    let tarefa = inputTarefa.value.trim()
-
-    const mensagem = document.getElementById("mensagem")
-
-    // se o valor do input for vazio então mostre uma mensagem de erro para o usuário
-    if (tarefa == "") {
-        //mostre uma mensagem de erro
-        let mensagemErro = "Digite uma tarefa para adicioná-la a sua lista!"
-        mensagem.textContent = mensagemErro
+    if (tarefa === "") {
+        mensagem.textContent = "Digite uma tarefa para adicioná-la à sua lista!";
     } else {
-        //mensagem de tarefa adicionada com sucesso
-        let mensagemSucesso = "Tarefa adicionada com sucesso!"
-        mensagem.textContent = mensagemSucesso
-
-        //cria novo item (li) e insere na (lista ul)
-        const listaTarefas = document.getElementById("listaTarefas")
-        let novaTarefa = document.createElement("li")
-        novaTarefa.textContent = tarefa
-        listaTarefas.appendChild(novaTarefa)
+        mensagem.textContent = "Tarefa adicionada com sucesso!";
+        const listaTarefas = document.getElementById("listaTarefas");
+        let novaTarefa = document.createElement("li");
+        novaTarefa.textContent = tarefa;
+        listaTarefas.appendChild(novaTarefa);
     }
 
-    //limpa o input do usuário
-    inputTarefa.value = ""
+    inputTarefa.value = "";
 }
+
+// Função para criar estrelas flutuantes
+function criarStarryNight() {
+    const starryNight = document.getElementById("starry-night");
+
+    // Criar estrelas dinamicamente
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+
+        // Posição aleatória
+        star.style.left = Math.random() * 100 + "vw";
+        star.style.top = Math.random() * 100 + "vh";
+
+        // Tamanho aleatório
+        const size = Math.random() * 5 + 2; // Entre 2px e 7px
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+
+        // Velocidade aleatória
+        star.style.animationDuration = Math.random() * 5 + 5 + "s"; // Entre 5s e 10s
+
+        starryNight.appendChild(star);
+    }
+}
+
+// Inicia o efeito de estrelas
+criarStarryNight();
