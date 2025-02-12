@@ -7,15 +7,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fundo com o efeito "Starry Night" -->
-  <div id="starry-night"></div>
-
-  <!-- Conteúdo principal da página -->
   <div class="container">
     <h1>Lista de Tarefas</h1>
     <p>Adicione suas tarefas!</p>
     <input type="text" id="inputTarefa" placeholder="Digite a sua tarefa">
     <button onclick="adicionarTarefa()">Adicionar Tarefa</button>
+    <button onclick="limparLista()" class="botao_lista">Limpar Tudo</button>
     <p id="mensagem"></p>
     <ul id="listaTarefas"></ul>
   </div>

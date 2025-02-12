@@ -1,46 +1,64 @@
-// Função para adicionar tarefa
+let tarefas = []
+
 function adicionarTarefa() {
-    const inputTarefa = document.getElementById("inputTarefa");
-    let tarefa = inputTarefa.value.trim();
-    const mensagem = document.getElementById("mensagem");
+    const inputTarefa = document.getElementById("inputTarefa")
+    let tarefa = inputTarefa.value.trim()
 
-    if (tarefa === "") {
-        mensagem.textContent = "Digite uma tarefa para adicioná-la à sua lista!";
+    const mensagem = document.getElementById("mensagem")
+
+    if (tarefa == "") {
+        let mensagemErro = "Digite uma tarefa para adicioná-la a sua lista!"
+        mensagem.textContent = mensagemErro
     } else {
-        mensagem.textContent = "Tarefa adicionada com sucesso!";
-        const listaTarefas = document.getElementById("listaTarefas");
-        let novaTarefa = document.createElement("li");
-        novaTarefa.textContent = tarefa;
-        listaTarefas.appendChild(novaTarefa);
+        let mensagemSucesso = "Tarefa adicionada com sucesso!"
+        mensagem.textContent = mensagemSucesso
+        tarefas.push(tarefa)
+        renderizarTarefas()
     }
 
-    inputTarefa.value = "";
+    inputTarefa.value = ""
 }
 
-// Função para criar estrelas flutuantes
-function criarStarryNight() {
-    const starryNight = document.getElementById("starry-night");
+function renderizarTarefas() {
+    const listaTarefas = document.getElementById("listaTarefas")
+    listaTarefas.innerHTML = ""
 
-    // Criar estrelas dinamicamente
-    for (let i = 0; i < 100; i++) {
-        const star = document.createElement("div");
-        star.classList.add("star");
+    for (let i = 0; i < tarefas.length; i++){
+        let novaTarefa = document.createElement("li")
+        novaTarefa.textContent = tarefas[i]
+        
+        let botaoRemover = document.createElement("button")
+        botaoRemover.className = "remover"
+        botaoRemover.textContent = "Remover"
+        botaoRemover.onclick = () => removerTarefa(i)
 
-        // Posição aleatória
-        star.style.left = Math.random() * 100 + "vw";
-        star.style.top = Math.random() * 100 + "vh";
-
-        // Tamanho aleatório
-        const size = Math.random() * 5 + 2; // Entre 2px e 7px
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-
-        // Velocidade aleatória
-        star.style.animationDuration = Math.random() * 5 + 5 + "s"; // Entre 5s e 10s
-
-        starryNight.appendChild(star);
+        let botaoEditar = document.createElement("button")
+        botaoEditar.className = "editar"
+        botaoEditar.textContent = "Editar"
+        botaoEditar.onclick = () => editarTarefa(i)
+        
+        novaTarefa.appendChild(botaoRemover)
+        novaTarefa.appendChild(botaoEditar)
+        listaTarefas.appendChild(novaTarefa)
     }
 }
 
-// Inicia o efeito de estrelas
-criarStarryNight();
+function removerTarefa(i) {
+    tarefas.splice(i, 1)
+    renderizarTarefas()
+}   
+
+function editarTarefa(i) {
+    let tarefaEditada = prompt("Edite a tarefa:")
+    if (tarefaEditada.trim() !== "") {
+        tarefas[i] = tarefaEditada
+        renderizarTarefas()
+    }
+}
+
+function limparLista() {
+    tarefas.length = 0
+    renderizarTarefas()
+    const mensagem = document.getElementById("mensagem")
+    mensagem.textContent = "Lista de tarefas limpa com sucesso!"
+}
